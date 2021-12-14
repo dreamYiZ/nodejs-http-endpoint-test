@@ -29,6 +29,15 @@ tape('should respond user-agent', (t) => {
   })
 })
 
+tape('should respond base64', (t) => {
+  const str = '123456'
+  jsonist.get(`${urlBase}/base64?str=${str}`, (err, body) => {
+    if (err) t.error(err)
+    t.equal(body.msg, Buffer.from(str).toString('base64'))
+    t.end()
+  })
+})
+
 tape('cleanup', function (t) {
   server.close()
   t.end()
